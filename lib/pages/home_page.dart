@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             Column(
               children: [
                 //logo
-                DrawerHeader(child: Image.asset('lib/images/logo.png')),
+                DrawerHeader(child: Image.asset('assets/logo.png')),
                 
                 //next line (space)
                 const Padding(

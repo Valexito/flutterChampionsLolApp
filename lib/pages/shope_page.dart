@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lol_champions/components/shoe_tile.dart';
+import 'package:lol_champions/models/shoe.dart';
 
 
 class ShopPage extends StatefulWidget {
@@ -51,8 +53,23 @@ class _ShopPageState extends State<ShopPage> {
           ),
         ),
 
-
-        
+        const SizedBox(height: 10,),
+     // 👇 This makes it scrollable and visible
+          Expanded(
+            child: ListView.builder(
+              itemCount: 5, // set to a real list length later
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                Shoe shoe = Shoe(
+                  name: 'Fiz (Mid liner)',
+                  price: '\$${(2 + 1) * 50}',
+                  imagePath: 'assets/fiz.jpg',
+                  description: 'Es un pequeño...',
+                );
+                return ShoeTile(shoe: shoe);
+              },
+            ),
+          ),
       ],
     );
   }
