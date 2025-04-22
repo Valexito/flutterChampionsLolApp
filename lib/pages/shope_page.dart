@@ -1,19 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:lol_champions/components/shoe_tile.dart';
+import 'package:lol_champions/models/cart.dart';
 import 'package:lol_champions/models/shoe.dart';
+import 'package:provider/provider.dart';
 
 
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key});
+
 
   @override
   State<ShopPage> createState() => _ShopPageState();
 }
 
 class _ShopPageState extends State<ShopPage> {
+
+  //METHODS
+
+  //Add sho to cart
+
+  void addShoeToCart(Shoe shoe){
+    Provider.of<Cart>(context, listen: false).addItemToCart(shoe);
+
+   //Message shoe was added
+    showDialog(
+      context: context, 
+      builder: (context)=>AlertDialog(
+        title: Text('Successfully added'),
+        content: Text('Check your library of chimpions'),
+      ));
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Consumer<Cart>(
+      builder:(context, value, child) => Column(
       children: [
 
         //search bar
@@ -55,22 +77,31 @@ class _ShopPageState extends State<ShopPage> {
 
         const SizedBox(height: 10,),
      // 👇 This makes it scrollable and visible
+     //   And list of champs
+     
           Expanded(
             child: ListView.builder(
               itemCount: 5, // set to a real list length later
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                Shoe shoe = Shoe(
-                  name: 'Fiz (Mid liner)',
-                  price: '\$${(2 + 1) * 50}',
-                  imagePath: 'assets/fiz.jpg',
-                  description: 'Es un pequeño...',
-                );
-                return ShoeTile(shoe: shoe);
+                //create shoe
+                Shoe shoe = value.getShoeList()[index];
+                //return shoe
+                return ShoeTile(
+                  shoe: shoe,
+                  onTap: ()=> addShoeToCart(shoe),
+                  );
               },
             ),
           ),
+        Padding(
+          padding: EdgeInsets.only(top: 25.0),
+          child: Divider(
+            color: Colors.white,
+          ),
+        ),
       ],
+    ),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lol_champions/pages/cart_pate.dart';
+import 'package:lol_champions/pages/cart_page.dart';
 import 'package:lol_champions/pages/shope_page.dart';
 import '../components/bottom_navbar.dart';
 
